@@ -5,6 +5,7 @@
  */
 package login;
 
+import business.User;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,6 +17,11 @@ public class LoginServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         
+        // Fetch the current session
+        HttpSession session = request.getSession();
+        // Create a User object from the session,
+        //  containing any pre-existing information about the user
+       
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
@@ -25,6 +31,10 @@ public class LoginServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        
+        
+        getServletContext().getRequestDispatcher("/WEB-INF/home.jsp");
         
     }
 }
