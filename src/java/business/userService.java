@@ -16,10 +16,10 @@ public class userService {
     
    
     
-    public User adam = new User("adam", "password");
-    public User betty = new User("betty", "password");
+    private final User adam = new User("adam", "password");
+    private final User betty = new User("betty", "password");
     
-     ArrayList<User> users = new ArrayList<>(Arrays.asList(adam, betty));
+    ArrayList<User> users = new ArrayList<>(Arrays.asList(adam, betty));
     
 
     public userService() {

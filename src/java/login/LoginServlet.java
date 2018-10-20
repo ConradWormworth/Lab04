@@ -6,6 +6,7 @@
 package login;
 
 import business.User;
+import business.userService;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -33,8 +34,18 @@ public class LoginServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/home.jsp");
-        
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+
+            userService us = new userService();
+
+            User attemptUser = us.Login(username, password);
+
+            if (attemptUser != null) {
+                getServletContext().getRequestDispatcher("/WEB-INF/home.jsp");
+            
+        }
+        request.setAttribute("loginFailure", "Login attempt unsuccessful");
     }
 }
