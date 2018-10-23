@@ -13,41 +13,70 @@ import javax.servlet.http.*;
 
 public class LoginServlet extends HttpServlet {
 
- @Override
+    @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
+
+        // If the user has just logged out from the Home page...
+        if(request.getParameter("logout") != null){
+                
+            request.setAttribute("loginFailure", "Successfully logged out.");
+        }
         
         // Fetch the current session
         HttpSession session = request.getSession();
+        Cookie[] cookies = request.getCookies();
+        String cookieName = "loginCookie";
+        String cookieValue = "";
+        for (Cookie cookie: cookies) {
+            if (cookieName.equals(cookie.getName())) {
+                cookieValue = cookie.getValue();
+                
+                request.setAttribute("username", cookieValue);
+                request.setAttribute("rememberMe", "on");
+             
+            }
+        }
+        
         // Create a User object from the session,
         //  containing any pre-existing information about the user
-       
+
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
-        
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        userService us = new userService();
 
-            userService us = new userService();
+        User attemptUser = us.Login(username, password);
 
-            User attemptUser = us.Login(username, password);
+        if (attemptUser != null) {
+            Cookie cookie = new Cookie("loginCookie", username);
+            if (request.getParameter("rememberMe") == null) {
+                // checkbox not checked
+                cookie.setMaxAge(0);
+            } else {
+                //checkbox checked 
+                response.addCookie(cookie);
+                session.setAttribute("sessionUsername", username);
+            }
+            request.setAttribute("username", username);
+            getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
 
-            if (attemptUser != null) {
-                getServletContext().getRequestDispatcher("/WEB-INF/home.jsp");
+        } else {
+            request.setAttribute("username", username);
+            request.setAttribute("password", password);
+            request.setAttribute("loginFailure", "Login attempt unsuccessful");
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
-        request.setAttribute("username", username);
-        request.setAttribute("password", password);
-        request.setAttribute("loginFailure", "Login attempt unsuccessful");
-        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
     }
 }

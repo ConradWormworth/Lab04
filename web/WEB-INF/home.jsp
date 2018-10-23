@@ -12,6 +12,8 @@
         <title>RememberMe</title>
     </head>
     <body>
-        <h1>Home</h1>
+        <h1>Hello, ${username}</h1> 
+        <br>
+        <a href="login?logout">Go back</a>
     </body>
 </html>

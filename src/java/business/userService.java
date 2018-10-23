@@ -35,7 +35,7 @@ public class userService {
             // Check attempt against existing usernames
             if (loginAttempt.getUsername().equals(users.get(i).getUsername())) {
                 // ... If username exists, check if password matches
-                if(loginAttempt.getPassword().equals(users.get(i).getUsername())) {
+                if(loginAttempt.getPassword().equals(users.get(i).getPassword())) {
                     /// ... Successful login
                     loginAttempt.setPassword(null);
                     return loginAttempt;

@@ -19,9 +19,10 @@
             Password: <input type="password" name="password" value="${password}">
             <br>
             <input type="submit" value="login">
+            <input type="checkbox" name="rememberMe" value="${rememberMe}">
+            <label for="rememberMe">Remember Me</label> <br>
         </form>
-        <input type="checkbox" id="RememberMe" name="rememberMe">
-        <label for="RememberMe">Remember Me</label> <br>
+
         ${loginFailure}
     </body>
 </html>
