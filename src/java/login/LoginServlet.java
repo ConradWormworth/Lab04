@@ -44,8 +44,10 @@ public class LoginServlet extends HttpServlet {
 
             if (attemptUser != null) {
                 getServletContext().getRequestDispatcher("/WEB-INF/home.jsp");
-            
         }
+        request.setAttribute("username", username);
+        request.setAttribute("password", password);
         request.setAttribute("loginFailure", "Login attempt unsuccessful");
+        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
     }
 }

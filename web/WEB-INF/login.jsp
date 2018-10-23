@@ -14,11 +14,11 @@
     <body>
         <h1>RememberMe Login Page</h1>
         <form action="login" method="POST">
-            Username: <input type="text" name="username">
+            Username: <input type="text" name="username" value="${username}">
             <br>
-            Password: <input type="password" name="username">
+            Password: <input type="password" name="password" value="${password}">
             <br>
-            <input type="submit" value="Login">
+            <input type="submit" value="login">
         </form>
         <input type="checkbox" id="RememberMe" name="rememberMe">
         <label for="RememberMe">Remember Me</label> <br>
